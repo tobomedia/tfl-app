@@ -12,11 +12,6 @@ import tflData from './redux/reducers';
 const store = createStore(tflData, applyMiddleware(logger));
 
 class App extends Component {
-    componentDidMount() {
-        /*ajax('https://api.tfl.gov.uk/Place?type=NaptanMetroStation,NaptanRailStation&lat=51.505404&lon=-0.109849&radius=800').then((data) => {
-            console.log(data);
-        })*/
-    }
   render() {
     return (
         <Provider store={store}>

@@ -21,7 +21,7 @@ class Location extends Component {
         return (
         <div>
             <h1>this is the location component Lat: {this.props.location.coords.latitude} Long: {this.props.location.coords.longitude}</h1>
-            {(this.props.location.coords.latitude.length > 0 ? <AvailableTransport /> : null)}
+            {(this.props.location.coords.latitude ? <AvailableTransport /> : null)}
         </div>)
     }
 }

@@ -17,20 +17,23 @@ const mapDispatchToProps = dispatch => {
     return {
         getTflData: (location) => {
             dispatch(actions.startUpdateTflData());
-            ajax('https://api.tfl.gov.uk/Place?type=NaptanMetroStation,NaptanRailStation&lat=51.505404&lon=-0.109849&radius=800')
-            .then((data) => {
-                dispatch(actions.updateTflData(data));
+            const TFL_REQUEST_LOCATION = ajax('https://api.tfl.gov.uk/Place?type=NaptanMetroStation,NaptanRailStation&lat=51.505404&lon=-0.109849&radius=800')
+
+            TFL_REQUEST_LOCATION.then((data) => {
                 return new Promise((resolve, reject) => {
-                    parsePlaces(data);
+                    dispatch(actions.updateTflData(data));
                 })
             })
-            // })
-            .then((data) => {
-                debugger;
-            //     dispatch(actions.startUpdateDisruptionData())
-            //     ajax(`https://api.tfl.gov.uk/line/mode/status`).then((data) => {
-            //         dispatch(actions.receiveDisruptionData(data))
-            //     });
+
+            TFL_REQUEST_LOCATION.then((data) => {
+                let lines = parsePlaces(data);
+
+                dispatch(actions.startUpdateDisruptionData());
+
+                ajax(`https://api.tfl.gov.uk/line/${lines.toString()}/status`).then((data) => {
+                    debugger;
+                    dispatch(actions.receiveDisruptionData(data))
+                }).catch((error)=> console.log(error));
             });
         }
     }

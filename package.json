@@ -9,6 +9,7 @@
     "react-scripts": "1.0.10",
     "redux": "^3.7.1",
     "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.2.0",
     "superagent": "^3.5.2",
     "superagent-bluebird-promise": "^4.2.0"
   },

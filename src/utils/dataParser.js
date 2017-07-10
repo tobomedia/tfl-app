@@ -1,16 +1,12 @@
-import * as actions from '../redux/actions';
 
 export const parsePlaces = (data, dispatch) => {
-    dispatch(actions.updateTflData(data));
-        let modes = [];
-        return new Promise((resolve,reject) => {
+        let lines = [];
             data.body.places.map((place) => {
-                return place.modes.map((mode) => {
-                    if (!modes.indexOf(place.mode)) {
-                        return modes.push(place.modes);
+                return place.lines.map((line) => {
+                    if (lines.indexOf(line.id) < 0) {
+                        lines.push(line.id);
                     }
                 });
             });
-            resolve(modes);
-        })
+            return lines;
 };

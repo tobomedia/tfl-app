@@ -3,13 +3,15 @@ import AvailableTransport from './AvailableTransport';
 import * as actions from '../redux/actions';
 
 import ajax from '../utils/ajax';
-import { parsePlaces } from '../utils/dataParser';
+import { parsePlaces, parseModes } from '../utils/dataParser';
 
 const mapStateToProps = state => {
-    const { tflData, location } = state;
+    const { tflData, location, modes, currentMode } = state;
     return {
         tflData,
-        location
+        location,
+        modes,
+        currentMode
     }
 }
 
@@ -22,19 +24,29 @@ const mapDispatchToProps = dispatch => {
             TFL_REQUEST_LOCATION.then((data) => {
                 return new Promise((resolve, reject) => {
                     dispatch(actions.updateTflData(data));
+                    resolve(data);
                 })
+            }).then((data) => {
+                const MODES = parseModes(data);
+                dispatch(actions.updateModesAvailable(MODES));
             })
 
             TFL_REQUEST_LOCATION.then((data) => {
-                let lines = parsePlaces(data);
+                    let lines = parsePlaces(data);
+                    dispatch(actions.startUpdateDisruptionData());
 
-                dispatch(actions.startUpdateDisruptionData());
-
-                ajax(`https://api.tfl.gov.uk/line/${lines.toString()}/status`).then((data) => {
-                    debugger;
-                    dispatch(actions.receiveDisruptionData(data))
-                }).catch((error)=> console.log(error));
+                    ajax(`https://api.tfl.gov.uk/line/${lines.toString()}/status`).then((data) => {
+                        dispatch(actions.receiveDisruptionData(data))
+                    }).catch((error)=> console.log(error));
             });
+
+        },
+        updateCurrentMode: (domElement) => {
+            domElement.preventDefault();
+
+            const selectedMode = domElement.target.innerText;
+
+            dispatch(actions.updateCurrentMode(selectedMode));
         }
     }
 }

@@ -18,6 +18,20 @@ export const startUpdateTflData = () => {
     }
 }
 
+export const updateModesAvailable = (modes) => {
+    return {
+        type: 'UPDATE_MODES_AVIALABLE',
+        data: modes
+    }
+}
+
+export const updateCurrentMode = (mode) => {
+    return {
+        type: 'UPDATE_CURRENT_MODE',
+        data: mode
+    }
+}
+
 export const startUpdateDisruptionData = () => {
     return {
         type: 'START_UPDATE_DISRUPTION_DATA'
@@ -28,5 +42,19 @@ export const receiveDisruptionData = (data) => {
     return {
         type: 'RECEIVE_DISRUPTION_DATA',
         data: data.body
+    }
+}
+
+export const receiveCycleData = (data) => {
+    return {
+        type: 'RECEIVE_CYCLE_DATA',
+        data: data.body
+    }
+}
+
+export const logSearch = (data) => {
+    return {
+        type: 'LOG_SEARCH_EVENT',
+        data: data
     }
 }

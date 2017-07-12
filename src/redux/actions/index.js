@@ -1,3 +1,5 @@
+import { mapServiceToDisruption } from '../../utils/dataParser';
+
 export const getLocation = (location) => {
     return {
         type: 'LOCATION_UPDATE',
@@ -42,6 +44,13 @@ export const receiveDisruptionData = (data) => {
     return {
         type: 'RECEIVE_DISRUPTION_DATA',
         data: data.body
+    }
+}
+
+export const mapDisruptionData = (disruption,services) => {
+    return {
+        type: 'MAP_DISRUPTION_DATA',
+        data: mapServiceToDisruption(services,disruption)
     }
 }
 

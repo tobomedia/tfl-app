@@ -3,9 +3,7 @@ export const parsePlaces = (data, dispatch) => {
     let lines = [];
     data.body.places.map((place) => {
         return place.lines.map((line) => {
-            if (lines.indexOf(line.id) < 0) {
-                lines.push(line.id);
-            }
+            lines.push(line.id);
             return true;
         });
     });
@@ -34,4 +32,21 @@ export const parseCycleDocks = (data, desiredVal) => {
         return false;
     })
     return value;
+}
+
+export const mapServiceToDisruption = (service,disruption) => {
+    let mappedServices = {};
+    /*eslint-disable array-callback-return*/
+    service.body.places.map((place) => {
+        place.lines.map((line) => {
+            disruption.body.map((service) => {
+                if (line.id === service.id) {
+                    return mappedServices[line.id] = service;
+                }
+            })
+        })
+    })
+    /*eslint-enable array-callback-return*/
+
+    return mappedServices;
 }

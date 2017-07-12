@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import Line from './Line';
+
 class AvailableTransport extends Component {
 
     constructor() {
@@ -17,7 +19,7 @@ class AvailableTransport extends Component {
             return this.props.tflData.places.map((item,i) => {
                 let travelModes = [];
                 if (item.modes.indexOf(this.props.currentMode) > -1) {
-                    travelModes.push(<li key={i}>{item.commonName} - <ul>{item.modes.map((mode,i) => <li key={i}>{mode}</li>)}</ul></li>);
+                    travelModes.push(<li key={i}>{item.commonName} - <Line item={item} disruptions={this.props.mappedDisruptionData}/></li>);
                 }
                 return travelModes;
             })

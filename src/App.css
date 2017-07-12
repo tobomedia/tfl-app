@@ -11,5 +11,17 @@ body {
     padding: 20px;
     background-color: #fff;
 }
+i {
+    border-radius: 50%;
+    height: 20px;
+    width:20px;
+    display: inline-block;
+}
+.bad {
+    background: red;
+}
+.good {
+    background: green;
+}
 
 a {margin: 0 5px;}

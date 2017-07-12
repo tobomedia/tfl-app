@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { parseCycleDocks } from '../utils/dataParser';
 
 class CycleSearch extends Component {
     constructor() {
@@ -46,7 +47,7 @@ class CycleSearch extends Component {
                 </form>
                 <ul>
                     {this.state.cycleSearch.map((a,i) => {
-                        return <li key={`cycleBay_${i}`}>{a.commonName}</li>
+                        return <li key={`cycleBay_${i}`}>{a.commonName} - <small>Bikes { parseCycleDocks(a, 'NbBikes') } : Bays {parseCycleDocks(a, 'NbEmptyDocks')}</small></li>
                     })}
                 </ul>
                 </div>)

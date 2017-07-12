@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class AvailableTransport extends Component {
 
@@ -14,9 +15,11 @@ class AvailableTransport extends Component {
     displayAvaialbleStations() {
         if (this.props.currentMode) {
             return this.props.tflData.places.map((item,i) => {
+                let travelModes = [];
                 if (item.modes.indexOf(this.props.currentMode) > -1) {
-                    return <li key={i}>{item.commonName} - <ul>{item.modes.map((mode,i) => <li key={i}>{mode}</li>)}</ul></li>
+                    travelModes.push(<li key={i}>{item.commonName} - <ul>{item.modes.map((mode,i) => <li key={i}>{mode}</li>)}</ul></li>);
                 }
+                return travelModes;
             })
         } else {
             return 'select a mode of travel for more information'
@@ -36,5 +39,15 @@ class AvailableTransport extends Component {
         </div>);
     }
 };
+
+AvailableTransport.propTypes = {
+    modes: PropTypes.array,
+    tflData: PropTypes.object,
+    location: PropTypes.object,
+    currentMode: PropTypes.string,
+    getTflData: PropTypes.func,
+    updateCurrentMode: PropTypes.func
+
+}
 
 export default AvailableTransport;

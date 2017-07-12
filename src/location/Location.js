@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import AvailableTransport from '../availableTransport';
 
@@ -20,10 +21,15 @@ class Location extends Component {
     render() {
         return (
         <div>
-            <h1>this is the location component Lat: {this.props.location.coords.latitude} Long: {this.props.location.coords.longitude}</h1>
+            <small>Current location: Lattitude: {this.props.location.coords.latitude} Longitude: {this.props.location.coords.longitude}</small>
             {(this.props.location.coords.latitude ? <AvailableTransport /> : null)}
         </div>)
     }
+}
+
+Location.propTypes = {
+    location: PropTypes.object,
+    updateLocation: PropTypes.func
 }
 
 export default Location;

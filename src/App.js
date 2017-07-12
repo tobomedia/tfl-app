@@ -16,7 +16,7 @@ class App extends Component {
   render() {
     return (
         <Provider store={store}>
-          <div className="App">
+          <div className="l-main-content">
             <Location/>
             <CycleSearch/>
           </div>

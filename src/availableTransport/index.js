@@ -52,6 +52,9 @@ const mapDispatchToProps = dispatch => {
             const selectedMode = domElement.target.innerText;
 
             dispatch(actions.updateCurrentMode(selectedMode));
+        },
+        updateServiceTypeDisruptions: (type) => {
+            dispatch(actions.updateServiceDisruption(type));
         }
     }
 }

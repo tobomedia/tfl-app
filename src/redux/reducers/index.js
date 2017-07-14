@@ -48,6 +48,11 @@ const tflData = (state = INITIAL_STATE, action) => {
           mappedDisruptionData: action.data
       })
 
+      case 'UPDATE_SERVICE_DISRUPTION':
+      return Object.assign({}, state, {
+          serviceDisruption: state.serviceDisruption[action.data]++
+      })
+
       case 'RECEIVE_CYCLE_DATA':
       return Object.assign({}, state, {
           cycleData: action.data

@@ -15,12 +15,16 @@ const store = createStore(tflData, applyMiddleware(logger));
 class App extends Component {
   render() {
     return (
-        <Provider store={store}>
-          <div className="l-main-content">
-            <Location/>
-            <CycleSearch/>
-          </div>
-        </Provider>
+    <Provider store = {store} >
+        <div className="l-content">
+            <div className="l-content__block">
+                    <Location/>
+            </div>
+            <div className="l-content__block">
+                <CycleSearch/>
+            </div>
+        </div>
+    </Provider>
     );
   }
 }

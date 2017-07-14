@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { parseCycleDocks } from '../utils/dataParser';
 
 class CycleSearch extends Component {
@@ -52,6 +53,13 @@ class CycleSearch extends Component {
                 </ul>
                 </div>)
         }
+}
+
+
+CycleSearch.propTypes = {
+    searches: PropTypes.array,
+    cycleData: PropTypes.array,
+    getCycleData: PropTypes.func
 }
 
 export default CycleSearch;

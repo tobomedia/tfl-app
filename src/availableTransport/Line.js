@@ -1,24 +1,36 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Disruptions from './Disruptions';
 
 const Line = (props) => {
-    // debugger;
     return (<ul>
         {props.item.lineModeGroups.map((mode,i) => {
-            return (
-                <li key={i}>
-                    {mode.modeName}
-                        <ul>
-                            {mode.lineIdentifier.map((service,i) => {
-                                return <li key={service}>{service} - <Disruptions {...props.disruptions[service]}/></li>
-                            })}
-                        </ul>
-                </li>
-
-            )
+            if(mode.modeName === props.currentMode) {
+                return (
+                    <li key={i}>
+                        {mode.modeName}
+                            <ul>
+                                {mode.lineIdentifier.map((service,i) => {
+                                    return <li key={service}>{service} - <Disruptions {...props.disruptions[service]}/></li>
+                                })}
+                            </ul>
+                    </li>
+                )
+            }
+            return false;
         })}
     </ul>)
+}
+
+Line.propTypes = {
+    item: PropTypes.shape({
+        lineModeGroups: PropTypes.arrayOf(PropTypes.shape({
+            modeName: PropTypes.string,
+            lineIdentifier: PropTypes.array
+        }))
+    }),
+    currentMode: PropTypes.string
 }
 
 export default Line;

@@ -21,8 +21,8 @@ class Location extends Component {
     render() {
         return (
         <div>
-            <small>Current location: Lattitude: {this.props.location.coords.latitude} Longitude: {this.props.location.coords.longitude}</small>
             {(this.props.location.coords.latitude ? <AvailableTransport /> : null)}
+            <small>Current location: Lattitude: <span className="t-lattitude">{this.props.location.coords.latitude}</span>  Longitude: <span className="t-longitude">{this.props.location.coords.longitude}</span></small>
         </div>)
     }
 }

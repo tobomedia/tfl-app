@@ -13,7 +13,7 @@ const INITIAL_STATE = {
         }]
     },
     cycleData: [],
-    searches: []
+    searches: ['square']
 }
 
 const tflData = (state = INITIAL_STATE, action) => {

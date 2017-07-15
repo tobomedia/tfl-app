@@ -8,9 +8,12 @@ class CycleSearch extends Component {
 
         this.search = this.search.bind(this);
         this.searching = this.searching.bind(this);
+        this.previousSearch = this.previousSearch.bind(this);
+
         this.state = {
             cycleSearch: [],
-            searchText: ''
+            searchText: '',
+            previousSearch: false
         };
     }
 
@@ -23,7 +26,16 @@ class CycleSearch extends Component {
             this.setState({searchText: el.target.value})
         }
 
-        search(a) {
+
+        previousSearch(el) {
+            el.preventDefault();
+            this.setState({
+                searchText: el.target.innerText,
+                previousSearch: true
+            }, () => this.search(el,true));
+        }
+
+        search(a,previousSearch=false) {
             a.preventDefault();
             const VALUE = this.state.searchText;
 
@@ -33,22 +45,26 @@ class CycleSearch extends Component {
 
             this.setState({cycleSearch: result});
 
-            this.props.startSearch(this.state.searchText);
+            if(!this.state.previousSearch) {
+                this.props.startSearch(this.state.searchText);
+            } else {
+                this.setState({previousSearch: false});
+            }
         }
 
         render() {
             return (<div>
                 <h2>Search for cycle points</h2>
                 <p> Previous searches: {this.props.searches.map((text,i) => {
-                    return <span style={{display: 'block'}} key={`searched_${i}`}>{text}</span>
+                    return <a href onClick={this.previousSearch} value={text} previousSearch="true" className="c-cycle-search__previous-search" style={{display: 'block'}} key={`searched_${i}`}>{text}</a>
                 })}</p>
-                <form onSubmit={this.search}>
-                    <input onChange={this.searching} type="text" />
-                    <input onClick={this.search} type="submit" value="Search" />
+            <form className="c-cycle-search__search-form" onSubmit={this.search}>
+                    <input className="c-cycle-search__search-input" onChange={this.searching} type="text" />
+                    <input className="c-cycle-search__search-submit" onClick={this.search} type="submit" value="Search" />
                 </form>
                 <ul>
                     {this.state.cycleSearch.map((a,i) => {
-                        return <li key={`cycleBay_${i}`}>{a.commonName} - <small>Bikes { parseCycleDocks(a, 'NbBikes') } : Bays {parseCycleDocks(a, 'NbEmptyDocks')}</small></li>
+                        return <li className='e-cycle-search__terminal-result' key={`cycleBay_${i}`}>{a.commonName} - <small>Bikes { parseCycleDocks(a, 'NbBikes') } : Bays {parseCycleDocks(a, 'NbEmptyDocks')}</small></li>
                     })}
                 </ul>
                 </div>)

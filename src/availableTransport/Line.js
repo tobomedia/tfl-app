@@ -12,13 +12,14 @@ const Line = (props) => {
                         {mode.modeName}
                             <ul>
                                 {mode.lineIdentifier.map((service,i) => {
-                                    return <li key={service}>{service} - <Disruptions {...props.disruptions[service]}/></li>
+                                    return <li className='e-travel-modes__service' key={service}>{service} - <Disruptions {...props.disruptions[service]}/></li>
                                 })}
                             </ul>
                     </li>
                 )
+            } else {
+                return false;
             }
-            return false;
         })}
     </ul>)
 }

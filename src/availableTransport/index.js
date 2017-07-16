@@ -5,7 +5,7 @@ import * as actions from '../redux/actions';
 import ajax from '../utils/ajax';
 import { parsePlaces, parseModes } from '../utils/dataParser';
 
-const mapStateToProps = state => {
+export const mapStateToProps = (state) => {
     const { tflData, location, modes, currentMode, mappedDisruptionData } = state;
     return {
         tflData,
@@ -16,7 +16,7 @@ const mapStateToProps = state => {
     }
 }
 
-const mapDispatchToProps = dispatch => {
+export const mapDispatchToProps = dispatch => {
     return {
         getTflData: (location) => {
             let tflResponseCache;
@@ -52,9 +52,6 @@ const mapDispatchToProps = dispatch => {
             const selectedMode = domElement.target.innerText;
 
             dispatch(actions.updateCurrentMode(selectedMode));
-        },
-        updateServiceTypeDisruptions: (type) => {
-            dispatch(actions.updateServiceDisruption(type));
         }
     }
 }

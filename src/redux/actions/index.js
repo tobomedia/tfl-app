@@ -54,13 +54,6 @@ export const mapDisruptionData = (disruption,services) => {
     }
 }
 
-export const updateServiceDisruption = (type) => {
-    return {
-        type: 'UPDATE_SERVICE_DISRUPTION',
-        data: type
-    }
-}
-
 export const receiveCycleData = (data) => {
     return {
         type: 'RECEIVE_CYCLE_DATA',

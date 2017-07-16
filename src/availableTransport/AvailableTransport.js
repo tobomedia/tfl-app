@@ -42,7 +42,7 @@ class AvailableTransport extends Component {
     render() {
 
         return (<div>
-            <h1> Available Transport </h1>
+            <h2> Available Transport </h2>
             <nav>
                 {this.renderModeNav()}
             </nav>

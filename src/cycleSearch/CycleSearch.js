@@ -32,11 +32,12 @@ class CycleSearch extends Component {
             this.setState({
                 searchText: el.target.innerText,
                 previousSearch: true
-            }, () => this.search(el,true));
+            }, () => this.search(el));
         }
 
-        search(a,previousSearch=false) {
-            a.preventDefault();
+        search(a) {
+            if (!this.state.previousSearch) a.preventDefault();
+
             const VALUE = this.state.searchText;
 
             let result = this.props.cycleData.filter((el) => {
@@ -54,11 +55,11 @@ class CycleSearch extends Component {
 
         render() {
             return (<div>
-                <h2>Search for cycle points</h2>
-                <p> Previous searches: {this.props.searches.map((text,i) => {
-                    return <a href onClick={this.previousSearch} value={text} previousSearch="true" className="c-cycle-search__previous-search" style={{display: 'block'}} key={`searched_${i}`}>{text}</a>
-                })}</p>
-            <form className="c-cycle-search__search-form" onSubmit={this.search}>
+                    <h2>Search for cycle points</h2>
+                    <p> Previous searches: {this.props.searches.map((text,i) => {
+                        return <a href onClick={this.previousSearch} value={text} className="c-cycle-search__previous-search" style={{display: 'block'}} key={`searched_${i}`}>{text}</a>
+                    })}</p>
+                <form className="c-cycle-search__search-form" onSubmit={this.search}>
                     <input className="c-cycle-search__search-input" onChange={this.searching} type="text" />
                     <input className="c-cycle-search__search-submit" onClick={this.search} type="submit" value="Search" />
                 </form>
@@ -67,7 +68,7 @@ class CycleSearch extends Component {
                         return <li className='e-cycle-search__terminal-result' key={`cycleBay_${i}`}>{a.commonName} - <small>Bikes { parseCycleDocks(a, 'NbBikes') } : Bays {parseCycleDocks(a, 'NbEmptyDocks')}</small></li>
                     })}
                 </ul>
-                </div>)
+            </div>)
         }
 }
 

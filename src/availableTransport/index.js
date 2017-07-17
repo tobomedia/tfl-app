@@ -21,7 +21,7 @@ export const mapDispatchToProps = dispatch => {
         getTflData: (location) => {
             let tflResponseCache;
             dispatch(actions.startUpdateTflData());
-            const TFL_REQUEST_LOCATION = ajax('https://api.tfl.gov.uk/Place?type=NaptanMetroStation,NaptanRailStation&lat=51.505404&lon=-0.109849&radius=800')
+            const TFL_REQUEST_LOCATION = ajax(`https://api.tfl.gov.uk/Place?type=NaptanMetroStation,NaptanRailStation&lat=${location.coords.latitude}&lon=${location.coords.longitude}&radius=800`)
 
             TFL_REQUEST_LOCATION.then((data) => {
                 return new Promise((resolve, reject) => {
